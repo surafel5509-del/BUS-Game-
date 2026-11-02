@@ -3,8 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
-<meta name="theme-color" content="#0c1220">
-<title>ULTIMATE BUS WORLD 3D</title>
+<meta name="theme-color" content="#0b1420">
+<meta name="description" content="A complete single-file voxel bus driving simulator. Explore five open-world regions, carry passengers, build your career and customize your fleet.">
+<title>Voxel Bus World — Open-Road Simulator</title>
 <style>
 :root{--y:#ffc933;--y2:#ff9d00;--bg:#0c1220;--pn:rgba(13,19,34,.93);--tx:#eef3ff;--mut:#8fa0c0;--ok:#4ade80;--bad:#f87171;--bl:#38bdf8}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none}
@@ -130,6 +131,167 @@ body.touch #limitSign{top:160px;width:42px;height:42px;font-size:15px;border-wid
 .rs{display:flex;justify-content:space-between;font-weight:700;border-bottom:1px solid #212c4a;padding:5px 2px}
 @media (max-height:520px){#menuBtns{top:24vh;gap:6px;display:grid;grid-template-columns:1fr 1fr;width:min(520px,70vw)}#menuBtns .btn{padding:8px 12px;font-size:13px}#menu .ttl{top:3vh}}
 @media (max-width:700px){#missionBox{top:auto;bottom:calc(120px + 2vmin);width:60vw;display:none}.pbox{max-height:96vh}}
+/* ---------------------------------------------------------------------
+   WORLD TOUR UPDATE — premium glass dashboard, responsive controls,
+   region selection and handcrafted CSS map art (still one self-contained file)
+   --------------------------------------------------------------------- */
+:root{--y:#ffd166;--y2:#f59e0b;--bg:#08111e;--pn:rgba(9,17,30,.94);--tx:#f3f7ff;--mut:#9aaec9;--ok:#63e6a2;--bad:#ff727d;--bl:#62c8f5;--line:rgba(150,180,224,.19)}
+body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:#07101c}
+button:focus-visible,select:focus-visible,input:focus-visible{outline:3px solid rgba(255,209,102,.86);outline-offset:3px}
+.btn{padding:12px 20px;border-radius:11px;background:linear-gradient(135deg,#ffe08a,#f8aa28);color:#201505;box-shadow:0 4px 0 #9a5f0c,0 12px 28px rgba(0,0,0,.25);letter-spacing:1.1px;transition:transform .16s ease,filter .16s ease,box-shadow .16s ease}
+.btn:hover{filter:brightness(1.08);transform:translateY(-1px)}
+.btn:active{transform:translateY(2px);box-shadow:0 1px 0 #9a5f0c}
+.btn.sec{background:linear-gradient(135deg,rgba(42,59,86,.94),rgba(21,32,51,.96));color:#eaf2ff;box-shadow:0 3px 0 #0b1422,0 10px 22px rgba(0,0,0,.2);border:1px solid rgba(190,211,243,.12)}
+.btn.sec:active{box-shadow:0 1px 0 #0b1422}
+.btn.ok{background:linear-gradient(135deg,#83f4b1,#3acb7a);box-shadow:0 3px 0 #167144}
+.btn.bad{background:linear-gradient(135deg,#ff8c92,#e04455);box-shadow:0 3px 0 #871d2b}
+.btn.sm{padding:8px 12px;border-radius:8px;font-size:11px;letter-spacing:.8px}
+.btn.sec.sm{box-shadow:0 2px 0 #0b1422}
+#menu{isolation:isolate;background:linear-gradient(90deg,rgba(5,11,20,.97) 0,rgba(5,11,20,.88) 34%,rgba(5,11,20,.42) 66%,rgba(5,11,20,.18) 100%)}
+#menu:before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(ellipse at 76% 43%,rgba(81,153,206,.12),transparent 42%),linear-gradient(0deg,rgba(4,9,16,.68),transparent 32%),repeating-linear-gradient(135deg,rgba(255,255,255,.012) 0 1px,transparent 1px 7px)}
+#menu .ttl{left:5vw;top:5.2vh;z-index:1;max-width:570px}
+.brand-kicker{display:flex;align-items:center;gap:9px;margin:0 0 13px;color:#9db4d1;font-size:10px;font-weight:900;letter-spacing:2.7px}
+.brand-kicker i{width:8px;height:8px;background:var(--y);box-shadow:0 0 16px rgba(255,209,102,.8);display:inline-block;transform:rotate(45deg)}
+#menu .logo{font-size:clamp(38px,6.3vw,76px);line-height:.88;letter-spacing:-2.4px;color:#f8fbff;text-shadow:0 3px 0 rgba(0,0,0,.4),0 12px 34px rgba(0,0,0,.62)}
+#menu .logo small{margin-top:12px;color:var(--y);font-size:.27em;letter-spacing:.76em;text-shadow:0 2px 10px rgba(245,158,11,.35)}
+.menu-tagline{margin:16px 0 0;color:#b5c5da;font-size:clamp(12px,1.3vw,15px);letter-spacing:.03em}
+#menuBtns{left:5vw;top:31vh;width:min(340px,35vw);gap:8px;z-index:2}
+#menuBtns .btn{min-height:45px;text-align:left;padding:11px 16px;font-size:13px;letter-spacing:1.35px;border-radius:10px}
+#menuBtns .btn:not(:first-child){padding-left:17px}
+#menuBtns .btn.sec{background:linear-gradient(100deg,rgba(20,32,51,.9),rgba(11,20,34,.78));text-shadow:0 1px 2px #000}
+#menuBtns .btn.sec:hover{border-color:rgba(255,209,102,.5);background:linear-gradient(100deg,rgba(39,55,79,.98),rgba(14,25,41,.96))}
+#menuInfo{right:3vw;top:3vh;gap:7px;z-index:3}
+.chip{padding:7px 11px;border:1px solid var(--line);border-radius:9px;background:rgba(7,14,25,.76);backdrop-filter:blur(14px);box-shadow:0 8px 26px rgba(0,0,0,.18);font-size:11px;letter-spacing:.45px}
+.chip.small{font-size:10px;padding:5px 8px}
+#menuInfo .chip{font-size:10px;letter-spacing:.65px}
+#menuInfo .region-chip{color:#f4d78b;border-color:rgba(255,209,102,.29)}
+#menuBus{right:3vw;bottom:4vh;width:min(440px,42vw);padding:20px 22px;text-align:left;text-shadow:none;background:linear-gradient(145deg,rgba(14,26,42,.91),rgba(7,14,25,.9));border:1px solid rgba(184,211,242,.2);border-radius:18px;box-shadow:0 24px 70px rgba(0,0,0,.43);backdrop-filter:blur(18px);z-index:2}
+#menuBus:before{content:"";position:absolute;inset:0 0 auto;height:2px;background:linear-gradient(90deg,var(--world-accent,#7ce38b),transparent 75%);border-radius:18px 18px 0 0}
+#menuBus .spot-kicker{display:block;margin-bottom:7px;color:#9db4d1;font-size:9px;font-weight:900;letter-spacing:2px;text-transform:uppercase}
+#menuBus .spot-world{font-size:clamp(20px,2vw,27px);line-height:1.1;font-weight:900;color:#f7fbff}
+#menuBus .spot-desc{margin:8px 0 12px;color:#b3c3d9;font-size:12px;line-height:1.5}
+#menuBus .spot-stats{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 14px}
+#menuBus .spot-stats span{padding:6px 8px;border-radius:7px;background:rgba(255,255,255,.045);border:1px solid rgba(190,211,243,.09);font-size:10px;color:#9fb0c8}
+#menuBus .spot-stats b{color:#f2f5fb;margin-left:4px}
+#menuBus .spot-bus{padding-top:12px;border-top:1px solid rgba(190,211,243,.13);display:flex;align-items:center;justify-content:space-between;gap:10px}
+#menuBus .spot-bus b{font-size:12px;color:#f5d477}
+#menuBus .spot-bus small{display:block;color:#8497b3;font-size:9px;letter-spacing:1.2px;margin-bottom:3px}
+#menuBus .spot-bus .btn{flex:0 0 auto}
+#menuHint{position:absolute;left:5vw;bottom:4vh;z-index:2;display:flex;align-items:center;gap:8px;color:#8598b3;font-size:10px}
+#menuHint>span{margin-right:5px;color:#9fb3cd;font-size:9px;font-weight:900;letter-spacing:1.5px}
+#menuHint kbd{min-width:24px;padding:4px 6px;text-align:center;border-radius:5px;color:#e5ecf6;background:rgba(8,16,28,.82);border:1px solid rgba(172,194,224,.2);font:700 10px ui-monospace,monospace}
+#menuHint i{font-style:normal;margin-right:5px}
+#panel{background:rgba(3,8,16,.79);backdrop-filter:blur(9px)}
+.pbox{width:min(1160px,95vw);max-height:94vh;border:1px solid rgba(167,194,231,.22);border-radius:18px;background:linear-gradient(145deg,rgba(13,23,39,.98),rgba(7,14,25,.97));box-shadow:0 30px 100px rgba(0,0,0,.72)}
+.phead{padding:17px 21px;border-bottom:1px solid rgba(167,194,231,.16)}
+.phead h2{color:#ffda83;letter-spacing:1.8px;font-size:clamp(17px,2.8vw,24px)}
+#pbody{padding:18px 20px 22px}
+.card{border:1px solid rgba(151,180,220,.16);border-radius:13px;background:linear-gradient(145deg,rgba(25,39,60,.85),rgba(12,22,37,.9));box-shadow:0 8px 24px rgba(0,0,0,.12)}
+.card.sel{border-color:rgba(255,209,102,.75);box-shadow:0 0 0 2px rgba(255,209,102,.12),0 12px 28px rgba(0,0,0,.2)}
+.card h3{color:#f4f7fd}
+.card p{color:#a7b7cc}
+.row{border-bottom-color:rgba(151,180,220,.13)}
+.row select,.row input[type=range]{border:1px solid rgba(151,180,220,.25);border-radius:8px;background:#0b1524}
+.world-section{margin:0 0 18px}
+.world-section-head{display:flex;justify-content:space-between;align-items:end;gap:12px;margin:0 0 11px}
+.world-section-head h3{margin:0;color:#f3f7ff;font-size:17px;letter-spacing:.15px}
+.world-section-head p{margin:4px 0 0;color:#90a4bf;font-size:11px}
+.world-section-head .section-kicker{display:block;margin-bottom:5px;color:#ffd166;font-size:9px;font-weight:900;letter-spacing:1.8px}
+.world-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(176px,1fr));gap:11px}
+.world-card{--world-accent:#77dc91;min-width:0;padding:0;overflow:hidden;text-align:left;color:#f3f7ff;background:linear-gradient(145deg,#17263a,#0c1727);border:1px solid rgba(151,180,220,.17);border-radius:13px;box-shadow:0 10px 25px rgba(0,0,0,.15);transition:transform .18s,border-color .18s,box-shadow .18s}
+.world-card:hover{transform:translateY(-3px);border-color:var(--world-accent);box-shadow:0 15px 32px rgba(0,0,0,.26)}
+.world-card.active{border-color:var(--world-accent);box-shadow:0 0 0 2px rgba(255,255,255,.09),0 13px 30px rgba(0,0,0,.24)}
+.world-art{position:relative;height:104px;overflow:hidden;background:#274056;isolation:isolate}
+.world-art:before,.world-art:after{content:"";position:absolute;left:-7%;right:-7%;bottom:0;pointer-events:none}
+.world-art:before{height:75%;clip-path:polygon(0 75%,13% 40%,23% 67%,38% 8%,52% 65%,68% 23%,81% 71%,91% 42%,100% 70%,100% 100%,0 100%)}
+.world-art:after{height:49%;clip-path:polygon(0 48%,17% 28%,31% 62%,49% 18%,64% 53%,83% 20%,100% 54%,100% 100%,0 100%)}
+.world-art .art-sun{position:absolute;right:18%;top:16%;width:25px;height:25px;border-radius:50%;background:rgba(255,244,195,.9);box-shadow:0 0 28px rgba(255,226,145,.62)}
+.world-art .art-road{position:absolute;z-index:2;bottom:-23px;left:48%;width:3px;height:64px;background:repeating-linear-gradient(180deg,rgba(255,255,255,.92) 0 8px,transparent 8px 15px);transform:rotate(11deg);opacity:.8}
+.world-art.terrain-emerald{background:linear-gradient(180deg,#5da7ca 0%,#c8e8d7 72%,#d1e9a0 100%)}
+.world-art.terrain-emerald:before{background:#74b96d}.world-art.terrain-emerald:after{background:#397a4d}
+.world-art.terrain-pine{background:linear-gradient(180deg,#6687a4 0%,#bfd0d8 74%,#dce1c9 100%)}
+.world-art.terrain-pine:before{background:#607f73}.world-art.terrain-pine:after{background:#234b43;clip-path:polygon(0 55%,12% 10%,24% 62%,36% 0,48% 62%,60% 7%,72% 61%,84% 0,100% 55%,100% 100%,0 100%)}
+.world-art.terrain-desert{background:linear-gradient(180deg,#5b8ca5 0%,#e9b67a 72%,#edce8f 100%)}
+.world-art.terrain-desert:before{height:62%;background:#c78b51;clip-path:polygon(0 60%,18% 60%,18% 26%,38% 26%,38% 51%,52% 51%,52% 6%,77% 6%,77% 60%,100% 60%,100% 100%,0 100%)}
+.world-art.terrain-desert:after{height:32%;background:#a96542;clip-path:polygon(0 35%,32% 12%,59% 43%,82% 0,100% 27%,100% 100%,0 100%)}
+.world-art.terrain-frost{background:linear-gradient(180deg,#4d82a4 0%,#c6e3ed 68%,#eff6f6 100%)}
+.world-art.terrain-frost:before{height:79%;background:#e6f1f4;clip-path:polygon(0 76%,15% 36%,23% 55%,43% 0,60% 63%,76% 23%,88% 62%,100% 42%,100% 100%,0 100%)}
+.world-art.terrain-frost:after{height:42%;background:#b4d2da;clip-path:polygon(0 59%,19% 17%,34% 55%,53% 4%,72% 48%,87% 14%,100% 52%,100% 100%,0 100%)}
+.world-art.terrain-coast{background:linear-gradient(180deg,#6aa5c3 0%,#c6e5dd 61%,#6bb3bc 62%,#2c8195 100%)}
+.world-art.terrain-coast:before{height:67%;background:#70af7a;clip-path:polygon(0 62%,17% 48%,29% 56%,42% 24%,61% 30%,77% 4%,100% 18%,100% 100%,0 100%)}
+.world-art.terrain-coast:after{height:32%;background:#34836d;clip-path:polygon(0 38%,24% 25%,38% 42%,60% 0,77% 28%,100% 13%,100% 100%,0 100%)}
+.world-card-info{padding:11px 12px 12px}
+.world-card-top{display:flex;justify-content:space-between;align-items:start;gap:6px}
+.world-card-top h3{margin:0;font-size:14px;line-height:1.2}
+.world-card-top small{display:block;margin-bottom:4px;color:#8fa4c0;font-size:8px;font-weight:900;letter-spacing:1.2px;text-transform:uppercase}
+.world-state{flex:0 0 auto;padding:4px 6px;border-radius:6px;color:#cbd7e8;background:rgba(255,255,255,.06);font-size:8px;font-weight:900;letter-spacing:.5px}
+.world-card.active .world-state{color:#101a14;background:var(--world-accent)}
+.world-card-info p{margin:8px 0;color:#a4b5ca;font-size:10px;line-height:1.4;min-height:28px}
+.world-metrics{display:flex;justify-content:space-between;gap:5px;border-top:1px solid rgba(160,184,215,.12);padding-top:8px;color:#7f94af;font-size:9px}
+.world-metrics b{color:#dce5f1;font-weight:800}
+.map-context{display:flex;align-items:center;gap:10px;padding:10px 12px;margin-bottom:12px;border:1px solid rgba(98,200,245,.18);border-radius:10px;background:rgba(25,71,94,.17);color:#bcd4e8;font-size:11px}
+.map-context b{color:#f5d986}
+.map-wrap{padding:10px;border:1px solid rgba(151,180,220,.17);border-radius:14px;background:rgba(4,10,18,.55)}
+.map-toolbar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 9px}
+.map-toolbar b{color:#eaf2fb;font-size:12px}
+.map-toolbar span{color:#8fa4c0;font-size:10px}
+#mapC{height:auto;max-height:54vh;object-fit:contain;border:1px solid rgba(151,180,220,.22);border-radius:9px;background:#0a1020}
+.legend{font-size:10px;color:#a6b6cc}
+.legend i{border:1px solid rgba(255,255,255,.2);border-radius:2px}
+#topL .chip,#navTxt,#missionBox{border-color:rgba(170,198,233,.2);box-shadow:0 8px 24px rgba(0,0,0,.18);backdrop-filter:blur(12px)}
+#mini{border:2px solid rgba(184,211,242,.62);box-shadow:0 7px 24px rgba(0,0,0,.5)}
+#missionBox{border-radius:12px;padding:10px 13px}
+#pauseBtn{border:1px solid rgba(182,205,239,.28);border-radius:12px;box-shadow:0 8px 20px rgba(0,0,0,.28);backdrop-filter:blur(12px)}
+.mbox{border-color:rgba(167,194,231,.22);border-radius:18px;background:linear-gradient(145deg,rgba(13,23,39,.98),rgba(7,14,25,.97));box-shadow:0 30px 100px rgba(0,0,0,.72)}
+@media(max-width:900px){
+ #menu .ttl{left:4vw;top:5vh}
+ #menuBtns{left:4vw;width:min(320px,42vw);top:31vh}
+ #menuBus{right:2.5vw;width:min(390px,45vw);padding:16px}
+ #menuHint{left:4vw}
+ .world-grid{grid-template-columns:repeat(auto-fit,minmax(165px,1fr))}
+}
+@media(max-width:640px){
+ #menu .ttl{left:4vw;top:6vh;max-width:53vw}
+ #menu .logo{font-size:clamp(34px,9vw,50px);letter-spacing:-1.5px}
+ .brand-kicker{font-size:8px;letter-spacing:1.6px;margin-bottom:9px}
+ .menu-tagline{font-size:10px;margin-top:10px;max-width:240px}
+ #menuBtns{left:4vw;top:31vh;width:45vw;gap:6px}
+ #menuBtns .btn{min-height:38px;padding:8px 10px;font-size:10px;letter-spacing:.8px;border-radius:8px}
+ #menuInfo{top:9px;right:8px;max-width:48vw;gap:4px}
+ #menuInfo .chip{font-size:8px;padding:5px 6px}
+ #menuInfo .region-chip{display:none}
+ #menuBus{right:2vw;bottom:2vh;width:47vw;padding:11px;border-radius:13px}
+ #menuBus .spot-kicker{font-size:7px;margin-bottom:5px}
+ #menuBus .spot-world{font-size:16px}
+ #menuBus .spot-desc{font-size:9px;line-height:1.35;margin:5px 0 8px}
+ #menuBus .spot-stats{gap:4px;margin-bottom:8px}
+ #menuBus .spot-stats span{font-size:8px;padding:4px 5px}
+ #menuBus .spot-bus{padding-top:8px;gap:5px}
+ #menuBus .spot-bus b{font-size:9px}
+ #menuBus .spot-bus small{font-size:7px}
+ #menuBus .spot-bus .btn{font-size:8px;padding:6px 7px;letter-spacing:.3px}
+ #menuHint{display:none}
+ .world-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+ .world-art{height:82px}
+ .world-card-info{padding:8px}
+ .world-card-top h3{font-size:12px}
+ .world-card-info p{font-size:9px;min-height:0}
+ .world-metrics{font-size:8px}
+ #pbody{padding:13px}
+ .phead{padding:12px 14px}
+ .map-toolbar{align-items:start}
+ #mapC{max-height:42vh}
+}
+@media(max-height:560px) and (min-width:641px){
+ #menu .ttl{top:3vh}
+ #menu .logo{font-size:clamp(32px,5vw,52px)}
+ #menu .menu-tagline{margin-top:7px}
+ #menuBtns{top:25vh;grid-template-columns:1fr 1fr;width:min(520px,55vw);gap:5px}
+ #menuBtns .btn{min-height:34px;padding:6px 10px;font-size:10px}
+ #menuHint{bottom:2vh}
+ #menuBus{bottom:2vh;padding:13px}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
 </style>
 </head>
 <body>
@@ -144,7 +306,7 @@ body.touch #limitSign{top:160px;width:42px;height:42px;font-size:15px;border-wid
 
 <div id="menu" class="screen">
  <div class="cube" style="left:48vw;top:12vh;animation-delay:-1s"></div><div class="cube" style="left:60vw;top:70vh;animation-delay:-4s;width:18px;height:18px"></div><div class="cube" style="left:80vw;top:30vh;animation-delay:-6s;width:34px;height:34px"></div>
- <div class="ttl"><div class="logo">ULTIMATE<br>BUS WORLD<small>3D</small></div></div>
+ <div class="ttl"><div class="brand-kicker"><i></i> VOXEL DRIVING SIMULATOR</div><div class="logo">ULTIMATE<br>BUS WORLD<small>3D</small></div><p class="menu-tagline">Build your route. Carry every passenger home.</p></div>
  <div id="menuBtns">
   <button class="btn" data-act="play" data-i="play">PLAY</button>
   <button class="btn sec" data-act="career" data-i="career">CAREER MODE</button>
@@ -155,7 +317,8 @@ body.touch #limitSign{top:160px;width:42px;height:42px;font-size:15px;border-wid
   <button class="btn sec" data-act="settings" data-i="settings">SETTINGS</button>
   <button class="btn sec" data-act="about" data-i="about">ABOUT</button>
  </div>
- <div id="menuInfo"><div class="chip" id="mMoney"></div><div class="chip" id="mLvl"></div><div class="chip" id="mRep"></div></div>
+ <div id="menuHint"><span>QUICK CONTROLS</span><kbd>W A S D</kbd><i>Drive</i><kbd>C</kbd><i>Camera</i><kbd>P</kbd><i>Pause</i></div>
+ <div id="menuInfo"><div class="chip" id="mMoney"></div><div class="chip" id="mLvl"></div><div class="chip" id="mRep"></div><div class="chip region-chip" id="mRegion"></div></div>
  <div id="menuBus"></div>
 </div>
 
@@ -165,7 +328,7 @@ body.touch #limitSign{top:160px;width:42px;height:42px;font-size:15px;border-wid
 </div></div>
 
 <div id="hud" class="screen">
- <div id="topL"><div class="chip" id="hMoney"></div><div class="chip" id="hLvl"></div><div id="xpbar"><i id="xpFill"></i></div><div class="chip small" id="hClock"></div><div class="chip small" id="hCam"></div></div>
+ <div id="topL"><div class="chip" id="hMoney"></div><div class="chip" id="hLvl"></div><div id="xpbar"><i id="xpFill"></i></div><div class="chip small" id="hClock"></div><div class="chip small" id="hCam"></div><div class="chip small" id="hWorld"></div></div>
  <div id="missionBox"></div>
  <div id="topR"><canvas id="mini" width="170" height="170"></canvas><div id="navTxt"></div></div>
  <div id="limitSign"><span id="limVal">60</span></div>
@@ -226,7 +389,7 @@ const lerp=(a,b,t)=>a+(b-a)*t;
 const sstep=(a,b,x)=>{const t=clamp((x-a)/(b-a),0,1);return t*t*(3-2*t);};
 const TAU=Math.PI*2,PI=Math.PI;
 function mulberry(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
-function hash2(x,y,s){let h=(Math.imul(x|0,374761393)+Math.imul(y|0,668265263)+Math.imul((s|0)+1,1274126177))|0;h=Math.imul(h^(h>>>13),1103515245);h^=h>>>16;h=Math.imul(h,2246822519);h^=h>>>13;return(h>>>0)/4294967296;}
+function hash2(x,y,s){let h=(Math.imul(x|0,374761393)+Math.imul(y|0,668265263)+Math.imul((s|0)+1,1274126177)+Math.imul(WORLD_SEED|0,2246822519))|0;h=Math.imul(h^(h>>>13),1103515245);h^=h>>>16;h=Math.imul(h,2246822519);h^=h>>>13;return(h>>>0)/4294967296;}
 function vnoise(x,y,s){const xi=Math.floor(x),yi=Math.floor(y),xf=x-xi,yf=y-yi;const u=xf*xf*(3-2*xf),v=yf*yf*(3-2*yf);const a=hash2(xi,yi,s),b=hash2(xi+1,yi,s),c=hash2(xi,yi+1,s),d=hash2(xi+1,yi+1,s);return a+(b-a)*u+(c-a)*v+(a-b-c+d)*u*v;}
 function fbm(x,y,s,o){let a=.5,f=1,t=0,n=0;for(let i=0;i<o;i++){t+=a*vnoise(x*f,y*f,s+i*17);n+=a;a*=.5;f*=2;}return t/n;}
 const C3=h=>[(h>>16&255)/255,(h>>8&255)/255,(h&255)/255];
@@ -234,17 +397,34 @@ const mulc=(c,f)=>[c[0]*f,c[1]*f,c[2]*f];
 const mixc=(a,b,t)=>[lerp(a[0],b[0],t),lerp(a[1],b[1],t),lerp(a[2],b[2],t)];
 const ONE3=[1,1,1];
 
+/* Curated, seed-based expeditions. Terrain, settlement patterns, handling and
+   atmosphere all respond to the selected region; no external map assets. */
+const WORLD_MAPS=[
+ {id:'emerald',name:'Emerald Valley',seed:1471,theme:'valley',region:'TEMPERATE',terrain:'Rolling plains',challenge:'Balanced',accent:'#7ce38b',urban:1.04,mountains:0.9,relief:1,peaks:1,water:1,grip:1,heat:0,description:'A welcoming mix of green countryside, growing cities and winding country roads.'},
+ {id:'pine',name:'Pinebound Highlands',seed:8359,theme:'pine',region:'WILDERNESS',terrain:'Forest & passes',challenge:'Technical',accent:'#75d6a4',urban:.82,mountains:1.28,relief:1.18,peaks:1.16,water:.9,grip:.92,heat:-3,description:'Deep evergreen forests, remote villages and narrow highland switchbacks.'},
+ {id:'desert',name:'Sunstone Desert',seed:21739,theme:'desert',region:'ARID FRONTIER',terrain:'Dunes & mesas',challenge:'Long-haul',accent:'#ffc36e',urban:.88,mountains:.72,relief:.62,peaks:.8,water:.22,grip:.96,heat:9,description:'Sun-baked mesas and long open highways connect scattered desert towns.'},
+ {id:'frost',name:'Frostline Alpine',seed:60317,theme:'frost',region:'ALPINE',terrain:'Snow & peaks',challenge:'Expert',accent:'#9bdcff',urban:.78,mountains:1.34,relief:1.18,peaks:1.3,water:.8,grip:.7,heat:-8,description:'A demanding snowline crossing with steep grades, icy shoulders and high passes.'},
+ {id:'coast',name:'Tidewater Coast',seed:97103,theme:'coast',region:'COASTAL',terrain:'Harbors & bays',challenge:'Scenic',accent:'#73dce0',urban:1.14,mountains:.72,relief:.82,peaks:.72,water:1.2,grip:.9,heat:2,description:'Harbor towns, bright coastal roads and broad blue inlets along the shore.'}
+];
+const DEFAULT_WORLD='emerald';
+let WORLD_SEED=1471;
+
 /* ---------- storage ---------- */
 const LS={get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d;}catch(e){return d;}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}},del(k){try{localStorage.removeItem(k);}catch(e){}}};
 const DEFSET={quality:'medium',res:0.85,shadow:1,dist:4,fps:60,vol:0.8,music:0.35,steer:1,layout:'standard',camSens:1,traffic:2,lang:'en',trans:'auto',adaptive:true,units:'kmh',touch:'auto'};
 const SET=Object.assign({},DEFSET,LS.get('ubw3d_set',{}));
-const DEFSAVE={money:3000,xp:0,level:1,rep:50,owned:{city:1},sel:'city',done:{},upg:{},km:0,pax:0,pos:null,fuel:null,dmg:0,hour:9};
+const DEFSAVE={money:3000,xp:0,level:1,rep:50,owned:{city:1},sel:'city',done:{},upg:{},km:0,pax:0,world:DEFAULT_WORLD,worldKm:{},pos:null,fuel:null,dmg:0,hour:9};
 const SV=Object.assign({},DEFSAVE,LS.get('ubw3d_save',{}));
+if(!WORLD_MAPS.some(w=>w.id===SV.world))SV.world=DEFAULT_WORLD;
+SV.worldKm=SV.worldKm&&typeof SV.worldKm==='object'?SV.worldKm:{};
+let ACTIVE_WORLD=WORLD_MAPS.find(w=>w.id===SV.world)||WORLD_MAPS[0];
+function activeWorld(){return ACTIVE_WORLD;}
+WORLD_SEED=ACTIVE_WORLD.seed|0;
 function saveAll(){LS.set('ubw3d_set',SET);LS.set('ubw3d_save',SV);}
 
 /* ---------- language ---------- */
 const LANG={
-en:{play:'PLAY',career:'CAREER MODE',free:'FREE ROAM',garage:'BUS GARAGE',missions:'MISSIONS',map:'MAP',settings:'SETTINGS',about:'ABOUT',back:'BACK',resume:'RESUME',paused:'PAUSED',fuel:'FUEL',temp:'TEMP',dmg:'DAMAGE',kmh:'km/h',mph:'mph'},
+en:{play:'START DRIVING',career:'CAREER MODE',free:'FREE ROAM',garage:'BUS GARAGE',missions:'MISSIONS',map:'MAPS & GPS',settings:'SETTINGS',about:'ABOUT',back:'BACK',resume:'RESUME',paused:'PAUSED',fuel:'FUEL',temp:'TEMP',dmg:'DAMAGE',kmh:'km/h',mph:'mph'},
 es:{play:'JUGAR',career:'MODO CARRERA',free:'MODO LIBRE',garage:'GARAJE',missions:'MISIONES',map:'MAPA',settings:'AJUSTES',about:'ACERCA DE',back:'VOLVER',resume:'CONTINUAR',paused:'PAUSA',fuel:'COMBUSTIBLE',temp:'TEMP',dmg:'DAÑO'},
 fr:{play:'JOUER',career:'MODE CARRIÈRE',free:'MODE LIBRE',garage:'GARAGE',missions:'MISSIONS',map:'CARTE',settings:'PARAMÈTRES',about:'À PROPOS',back:'RETOUR',resume:'REPRENDRE',paused:'PAUSE',fuel:'CARBURANT',temp:'TEMP',dmg:'DÉGÂTS'},
 de:{play:'SPIELEN',career:'KARRIERE',free:'FREIE FAHRT',garage:'GARAGE',missions:'MISSIONEN',map:'KARTE',settings:'EINSTELLUNGEN',about:'ÜBER',back:'ZURÜCK',resume:'WEITER',paused:'PAUSE',fuel:'TANK',temp:'TEMP',dmg:'SCHADEN'},
@@ -463,21 +643,31 @@ let skyBuf,skyN=0;
 const S=128,CS=32,HW=5,PLT=11,WATER=0;
 let simTime=0;
 function spawnF(x,z){return 1-sstep(160,420,Math.hypot(x,z));}
-function urbanAt(x,z){return Math.max(fbm(x/1700+5.3,z/1700+9.1,9,2),0.65*spawnF(x,z));}
-function mtnAt(x,z){return sstep(0.5,0.72,fbm(x/900,z/900,1,3))*(1-0.95*spawnF(x,z));}
-function natBase(x,z){const mt=mtnAt(x,z),ub=urbanAt(x,z);const flat=1-0.85*sstep(0.5,0.58,ub);let h=8+(fbm(x/240,z/240,4,3)-0.5)*16*flat;if(mt>0)h+=mt*(fbm(x/130,z/130,5,4)*75+8);return h;}
+function urbanAt(x,z){const w=activeWorld();return Math.max(fbm(x/1700+5.3,z/1700+9.1,9,2)*w.urban,0.65*spawnF(x,z));}
+function mtnAt(x,z){const w=activeWorld();return clamp(sstep(0.5,0.72,fbm(x/900,z/900,1,3))*w.mountains*(1-0.95*spawnF(x,z)),0,1);}
+function natBase(x,z){const w=activeWorld(),mt=mtnAt(x,z),ub=urbanAt(x,z);const flat=1-0.85*sstep(0.5,0.58,ub);let h=8+(fbm(x/240,z/240,4,3)-0.5)*16*flat*w.relief;if(mt>0)h+=mt*(fbm(x/130,z/130,5,4)*75*w.peaks+8*w.relief);return h;}
 function natH(x,z){
- let h=natBase(x,z);const mt=mtnAt(x,z),sp=spawnF(x,z);
+ const w=activeWorld(),sp=spawnF(x,z);let h=natBase(x,z);const mt=mtnAt(x,z);
  const lk=fbm(x/420,z/420,6,2);
- h=lerp(h,-6,sstep(0.64,0.7,lk)*(1-mt)*(1-sp));
+ h=lerp(h,-6,sstep(0.64,0.7,lk)*(1-mt)*(1-sp)*w.water);
  const rv=Math.abs(fbm(x/520,z/520,7,2)-0.5);
- const rw=(1-sstep(0.008,0.03,rv))*(1-sstep(16,26,h))*(1-mt*0.8)*(1-sp);
- return lerp(h,-3.5,rw);
+ const rw=(1-sstep(0.008,0.03,rv))*(1-sstep(16,26,h))*(1-mt*0.8)*(1-sp)*w.water;
+ h=lerp(h,-3.5,rw);
+ if(w.theme==='coast'){
+  const shoreline=sstep(0.43,0.61,fbm(x/820+7,z/820+13,59,3));
+  h=lerp(-8,h,Math.max(shoreline,sp));
+ }
+ return h;
 }
 function biomeAt(x,z){
- if(spawnF(x,z)>0.5)return 0;
- const mt=mtnAt(x,z);if(mt>0.35)return mt>0.92?4:3;
+ const w=activeWorld(),sp=spawnF(x,z),mt=mtnAt(x,z);
+ if(sp>0.5){if(w.theme==='desert')return 2;if(w.theme==='pine')return 1;if(w.theme==='frost')return 4;return 0;}
  const t=fbm(x/1200+3,z/1200+7,3,2),m=fbm(x/700+9,z/700+1,2,2);
+ if(w.theme==='desert'){if(mt>0.58)return mt>0.94?3:3;return 2;}
+ if(w.theme==='pine'){if(mt>0.9)return 4;if(mt>0.3)return 3;return m>0.43?1:0;}
+ if(w.theme==='frost'){if(mt>0.27)return mt>0.53?4:3;return m>0.46?1:0;}
+ if(w.theme==='coast'){if(natH(x,z)<WATER+3&&mt<0.28)return 2;if(mt>0.4)return mt>0.92?4:3;return m>0.58?1:0;}
+ if(mt>0.35)return mt>0.92?4:3;
  if(t>0.56&&m<0.52)return 2;if(m>0.56)return 1;return 0;
 }
 const NA=['Oak','Pine','River','Stone','Sun','Lake','Maple','Iron','Gold','Silver','Cedar','Wolf','Eagle','Red','Blue','Green','Fort','North','South','East','West','High','Low','Bright'];
@@ -578,14 +768,14 @@ const BPAL=[[.78,.76,.72],[.6,.62,.66],[.7,.45,.38],[.85,.8,.65],[.45,.55,.7],[.
 const HPAL=[[.9,.85,.7],[.85,.6,.5],[.75,.8,.85],[.9,.9,.85],[.7,.55,.4]],RPAL=[[.65,.2,.15],[.35,.3,.3],[.5,.3,.2],[.2,.3,.5]];
 
 function terrColor(x,z,h,sl,st){
- const bio=biomeAt(x,z);let c;
+ const bio=biomeAt(x,z),w=activeWorld();let c;
  const jv=0.9+hash2(Math.floor(x/st*3.1),Math.floor(z/st*2.7),5)*0.2;
  if(h<WATER+0.7)c=h<WATER-0.2?[0.5,0.45,0.32]:[0.84,0.78,0.52];
- else if(bio===2)c=[0.88,0.76,0.48];
+ else if(bio===2)c=w.theme==='desert'?[0.82,0.59,0.32]:[0.88,0.76,0.48];
  else if(bio===4||h>54)c=[0.95,0.97,1.0];
  else if(bio===3||h>28){c=h<20?[0.3,0.52,0.22]:[0.5,0.5,0.52];}
- else if(bio===1)c=[0.2,0.5,0.17];
- else c=[0.36,0.64,0.22];
+ else if(bio===1)c=w.theme==='pine'?[0.13,0.37,0.2]:[0.2,0.5,0.17];
+ else c=w.theme==='coast'?[0.36,0.62,0.3]:[0.36,0.64,0.22];
  if(sl>st*0.95&&bio!==2&&h>WATER+0.7&&!(bio===4||h>54))c=mixc(c,[0.45,0.38,0.3],0.6);
  return mulc(c,jv);
 }
@@ -1032,6 +1222,8 @@ function computeEnv(){
  let zen=mixc([.01,.02,.07],[.22,.45,.85],dayF);
  const gh=mixc([.03,.035,.05],[.62,.65,.7],dayF),gz=mixc([.02,.025,.04],[.42,.45,.5],dayF);
  hor=mixc(hor,gh,clamp(rain*0.85+fog*0.9,0,1));zen=mixc(zen,gz,clamp(rain*0.8+fog*0.6,0,1));
+ const tint={pine:[.56,.72,.67],desert:[1,.74,.5],frost:[.68,.8,.98],coast:[.52,.74,.91]}[activeWorld().theme];
+ if(tint){hor=mixc(hor,tint,dayF*0.13);zen=mixc(zen,tint,dayF*0.08);}
  ENV.hor=hor;ENV.zen=zen;
  const wd=1-0.25*rain;ENV.amb=mulc(mixc([.09,.11,.2],[.52,.56,.64],dayF),wd);
  let sc=mixc([.1,.12,.22],[1,.93,.8],dayF);sc=mixc(sc,[1,.6,.3],sunset*0.45);ENV.scol=mulc(sc,(1-0.6*rain)*(1-0.8*fog));
@@ -1056,7 +1248,7 @@ function hitObstacle(imp,what){
  AU.crash(imp);if(imp>3)toast('Collision! '+(what||'')+' Damage '+Math.round(P.dmg)+'%','r');
 }
 function updatePlayer(dt){
- const d=P.def,up=upg();
+ const d=P.def,up=upg(),world=activeWorld();
  const engL=up.eng||0,tireL=up.tire||0;
  const vmax=d.vmax/3.6*(1+0.04*engL);
  const L=d.L,W=d.W;
@@ -1075,7 +1267,7 @@ function updatePlayer(dt){
  let mu,roll=0.12,rough=0,onRoad=ra.on;
  if(onRoad){mu=[.9,.9,.85,.55,.6,.85][ra.cls]*(1-0.35*wet);roll=ra.cls>=3?0.35:0.12;rough=ra.cls===3?0.5:(ra.cls===4?0.8:0);}
  else{const gh=P.y;const bio=biomeAt(P.x,P.z);mu=(bio===2?0.5:0.55)*(1-0.2*wet);roll=0.7;rough=1.4;if(bio===4)mu=0.35;}
- mu*=(1+0.06*tireL);
+ mu*=(1+0.06*tireL)*world.grip;
  // ground sampling
  const zf=d.ax[0]*L,zr=d.ax[d.ax.length>2?1:1]*L;
  const gF=groundY(P.x+fx*zf,P.z+fz*zf),gRr=groundY(P.x+fx*zr,P.z+fz*zr);
@@ -1157,7 +1349,7 @@ function updatePlayer(dt){
  if(canRun){
   const kf=(d.electric?0.5:1)*d.tank/180;
   P.fuel=Math.max(0,P.fuel-(0.004+0.012*drive*(0.3+frac))*kf*2.2*dt);
-  P.temp+=(2.6*(0.15+drive*frac)-(P.temp-45)*(0.018+0.0015*spd))*dt;
+  P.temp+=(2.6*(0.15+drive*frac)-(P.temp-(45+world.heat))*(0.018+0.0015*spd))*dt;
  }else P.temp+=(-(P.temp-30)*0.01)*dt;
  if(P.temp>125)P.dmg=Math.min(100,P.dmg+0.4*dt);
  if(P.fuel<=0&&P.engineOn&&G.msgT<=0){G.msgT=6;toast('OUT OF FUEL! Call a repair truck (respawn) or coast to a station','r');}
@@ -1177,7 +1369,7 @@ function updatePlayer(dt){
   if(P.intKey!==nn.key){P.intKey=nn.key;const ax=Math.abs(Math.sin(P.yaw))>Math.abs(Math.cos(P.yaw))?1:0;if(lightState(nn,ax)===2&&spd>3){addMoney(-100);P.sat=Math.max(0,P.sat-8);toast('Red light violation! -'+CUR+'100','r');}}
  }else if(Math.abs(P.x-nn.x)>HW+6||Math.abs(P.z-nn.z)>HW+6)P.intKey=0;
  // distance & safe pos
- SV.km+=spd*dt/1000;G.session.km+=spd*dt/1000;
+ const distanceKm=spd*dt/1000;SV.km+=distanceKm;SV.worldKm[SV.world]=(SV.worldKm[SV.world]||0)+distanceKm;G.session.km+=distanceKm;
  if(onRoad&&ra.cls<=5){P.safeT+=dt;if(P.safeT>1.5&&spd>0.5){P.safeT=0;P.safe={x:P.x,z:P.z,yaw:P.yaw};}}
  if(G.msgT>0)G.msgT-=dt;if(G.hitCool>0)G.hitCool-=dt;
  // particles
@@ -1732,8 +1924,8 @@ function pollInput(dt){
 function mapColor(x,z){
  const h=natH(x,z);if(h<WATER)return[44,94,160];
  if(urbanAt(x,z)>0.56)return[104,108,118];
- const b=biomeAt(x,z);
- if(h<WATER+1)return[205,195,140];if(b===2)return[214,188,120];if(b===4||h>54)return[235,240,245];if(b===3||h>28)return[128,128,132];if(b===1)return[40,100,45];
+ const b=biomeAt(x,z),w=activeWorld();
+ if(h<WATER+1)return[205,195,140];if(b===2)return w.theme==='desert'?[211,160,83]:[214,188,120];if(b===4||h>54)return[235,240,245];if(b===3||h>28)return[128,128,132];if(b===1)return w.theme==='pine'?[34,87,60]:[40,100,45];
  return[88,150,62];
 }
 function makeBg(cx,cz,ext,res){
@@ -1877,7 +2069,7 @@ function updateHUD(dt){
  E('xpFill').style.width=(SV.xp/xpNeed(SV.level)*100)+'%';
  const hh=Math.floor(G.time),mm=Math.floor((G.time-hh)*60);const w=G.weather;
  E('hClock').textContent=String(hh).padStart(2,'0')+':'+String(mm).padStart(2,'0')+'  '+(w.rain>0.4?'RAIN':(w.fog>0.4?'FOG':'CLEAR'));
- E('hCam').textContent='CAM: '+CAMNAMES[G.cam];
+ E('hCam').textContent='CAM: '+CAMNAMES[G.cam];E('hWorld').textContent=activeWorld().name.toUpperCase();
  E('gFuel').style.width=(P.fuel/maxFuel()*100)+'%';E('gFuel').style.background=P.fuel/maxFuel()<0.15?'#f87171':'#4ade80';
  E('gTemp').style.width=clamp((P.temp-40)/90,0,1)*100+'%';E('gTemp').style.background=P.temp>112?'#f87171':'#fbbf24';
  E('gDmg').style.width=P.dmg+'%';E('gSat').style.width=P.sat+'%';
@@ -1914,6 +2106,16 @@ function stateSave(){SV.pos={x:P.x,z:P.z,yaw:P.yaw};SV.fuel=P.fuel;SV.dmg=P.dmg;
 let PANEL=null;
 const PTITLES={missions:'MISSIONS',career:'CAREER MODE',garage:'BUS GARAGE',map:'WORLD MAP & GPS',settings:'SETTINGS',about:'ABOUT'};
 function tierTag(t){return '<span class="tag '+['e','m','h'][t]+'">'+['EASY','MEDIUM','HARD'][t]+'</span>';}
+function worldCardsHTML(){
+ const cards=WORLD_MAPS.map(w=>{
+  const selected=w.id===SV.world,km=(SV.worldKm[w.id]||0).toFixed(1);
+  return '<button type="button" class="world-card '+(selected?'active':'')+'" data-act="selectWorld" data-id="'+w.id+'" aria-pressed="'+selected+'" style="--world-accent:'+w.accent+'" title="Explore '+w.name+'">'+
+   '<div class="world-art terrain-'+w.id+'"><span class="art-sun"></span><span class="art-road"></span></div>'+
+   '<div class="world-card-info"><div class="world-card-top"><div><small>'+w.region+'</small><h3>'+w.name+'</h3></div><span class="world-state">'+(selected?'ACTIVE':'EXPLORE')+'</span></div>'+
+   '<p>'+w.description+'</p><div class="world-metrics"><span>'+w.terrain+'</span><span>'+w.challenge+' · <b>'+km+' km</b></span></div></div></button>';
+ }).join('');
+ return '<section class="world-section"><div class="world-section-head"><div><span class="section-kicker">FIVE HANDCRAFTED REGION PROFILES</span><h3>Choose your next world</h3><p>Each region reshapes terrain, settlements and road handling. Your fleet and career travel with you.</p></div></div><div class="world-grid">'+cards+'</div></section>';
+}
 function missionCard(m){
  const done=SV.done[m.id],lock=!missionUnlocked(m)||SV.level<m.minLevel;
  return '<div class="card '+(lock?'lock':'')+'"><h3>'+(m.id+1)+'. '+m.name+'</h3><div>'+tierTag(m.tier)+(done?'<span class="tag" style="background:#1f7a46">COMPLETED</span>':'')+(lock?'<span class="tag" style="background:#7a1f1f">LOCKED</span>':'')+'</div><p>'+m.desc+'</p><p><b>'+m.start.name+'</b> \u2192 <b>'+m.dest.name+'</b></p><p>Distance '+(m.dist/1000).toFixed(2)+' km \u00B7 '+m.pax+' passengers \u00B7 '+(m.limit?'Time limit '+fmtTime(m.limit):'No time limit')+'</p><p>Reward <b style="color:#4ade80">'+money(m.reward)+'</b> \u00B7 +'+m.xp+' XP \u00B7 Level '+m.minLevel+(m.hour!==null?' \u00B7 '+(m.hour>20?'Night':'Morning'):'')+(m.weather?' \u00B7 Rain':'')+(m.rec?' \u00B7 Best bus: '+BUSES.find(b=>b.id===m.rec).name:'')+'</p><div style="margin-top:8px;display:flex;gap:8px"><button class="btn sm" data-act="mstart" data-id="'+m.id+'" '+(lock?'disabled':'')+'>'+(done?'REPLAY':'START')+'</button><button class="btn sec sm" data-act="mmap" data-id="'+m.id+'">MAP</button></div></div>';
@@ -1922,7 +2124,7 @@ function panelHTML(){
  if(PANEL==='missions')return '<p style="color:var(--mut);margin-top:0">'+doneCount()+' / '+MISSIONS.length+' missions completed. Finish missions to unlock new ones.</p><div class="grid">'+MISSIONS.map(missionCard).join('')+'</div>';
  if(PANEL==='career'){
   const next=MISSIONS.find(m=>!SV.done[m.id]&&missionUnlocked(m)&&SV.level>=m.minLevel);
-  return '<div class="grid" style="margin-bottom:14px"><div class="card"><h3>Driver profile</h3><p>Level <b>'+SV.level+'</b> \u00B7 XP '+SV.xp+' / '+xpNeed(SV.level)+'</p><p>Reputation <b>'+Math.round(SV.rep)+'</b> / 100</p><p>Money <b style="color:#4ade80">'+money(SV.money)+'</b></p></div><div class="card"><h3>Statistics</h3><p>Distance driven: '+SV.km.toFixed(1)+' km</p><p>Passengers carried: '+SV.pax+'</p><p>Missions done: '+doneCount()+' / '+MISSIONS.length+'</p><p>Buses owned: '+Object.keys(SV.owned).length+' / '+BUSES.length+'</p></div><div class="card"><h3>Continue career</h3><p>'+(next?next.name+' ('+next.start.name+' \u2192 '+next.dest.name+')':'All available missions completed!')+'</p>'+(next?'<button class="btn sm" data-act="mstart" data-id="'+next.id+'">START NEXT MISSION</button>':'')+'</div></div><div class="grid">'+MISSIONS.map(missionCard).join('')+'</div>';
+  return '<div class="grid" style="margin-bottom:14px"><div class="card"><h3>Driver profile</h3><p>Level <b>'+SV.level+'</b> \u00B7 XP '+SV.xp+' / '+xpNeed(SV.level)+'</p><p>Reputation <b>'+Math.round(SV.rep)+'</b> / 100</p><p>Money <b style="color:#4ade80">'+money(SV.money)+'</b></p></div><div class="card"><h3>Statistics</h3><p>Distance driven: '+SV.km.toFixed(1)+' km</p><p>Passengers carried: '+SV.pax+'</p><p>Missions done: '+doneCount()+' / '+MISSIONS.length+'</p><p>Buses owned: '+Object.keys(SV.owned).length+' / '+BUSES.length+'</p><p>Current region: '+activeWorld().name+' · '+(SV.worldKm[SV.world]||0).toFixed(1)+' km</p></div><div class="card"><h3>Continue career</h3><p>'+(next?next.name+' ('+next.start.name+' \u2192 '+next.dest.name+')':'All available missions completed!')+'</p>'+(next?'<button class="btn sm" data-act="mstart" data-id="'+next.id+'">START NEXT MISSION</button>':'')+'</div></div><div class="grid">'+MISSIONS.map(missionCard).join('')+'</div>';
  }
  if(PANEL==='garage'){
   let h='<div style="display:flex;flex-direction:column;gap:10px">';
@@ -1940,9 +2142,12 @@ function panelHTML(){
   }
   return h+'</div>';
  }
- if(PANEL==='map')return '<canvas id="mapC" width="940" height="520"></canvas><div class="legend">'+Object.keys(POIC).map(k=>'<span><i style="background:'+POIC[k][0]+'"></i>'+POIC[k][1]+' '+k+'</span>').join('')+'<span><i style="background:#22d3ee"></i>GPS route</span></div><div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap"><button class="btn sm" data-act="mzin">ZOOM +</button><button class="btn sm sec" data-act="mzout">ZOOM -</button><button class="btn sm sec" data-act="mcenter">CENTER ON BUS</button><button class="btn sm sec" data-act="mclear">CLEAR GPS</button></div>';
+ if(PANEL==='map'){
+  const picker=G.mode==='play'?'<div class="map-context"><span><b>GPS NAVIGATION</b> · Active region: '+activeWorld().name+'. Change regions from the main menu.</span></div>':worldCardsHTML();
+  return picker+'<div class="map-wrap"><div class="map-toolbar"><b>Live road atlas · '+activeWorld().name+'</b><span>Drag to pan · tap a town to set GPS · mouse wheel to zoom</span></div><canvas id="mapC" width="940" height="520" aria-label="Interactive world map"></canvas></div><div class="legend">'+Object.keys(POIC).map(k=>'<span><i style="background:'+POIC[k][0]+'"></i>'+POIC[k][1]+' '+k+'</span>').join('')+'<span><i style="background:#22d3ee"></i>GPS route</span></div><div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap"><button class="btn sm" data-act="mzin">ZOOM +</button><button class="btn sm sec" data-act="mzout">ZOOM -</button><button class="btn sm sec" data-act="mcenter">CENTER ON BUS</button><button class="btn sm sec" data-act="mclear">CLEAR GPS</button></div>';
+ }
  if(PANEL==='settings')return settingsHTML();
- if(PANEL==='about')return '<p><b style="color:var(--y)">ULTIMATE BUS WORLD 3D</b> - an open-world voxel bus simulator, running entirely in your browser with native WebGL, Canvas and Web Audio. No external files, no internet needed.</p><div class="grid"><div class="card"><h3>Keyboard</h3><p>W/\u2191 gas \u00B7 S/\u2193 brake / reverse<br>A,D / \u2190,\u2192 steer \u00B7 Space handbrake<br>H horn \u00B7 L lights \u00B7 Z/X indicators \u00B7 B hazards<br>C camera \u00B7 R reverse gear \u00B7 Q/E manual gears<br>T auto/manual \u00B7 G speed limiter \u00B7 M map \u00B7 P/Esc pause</p></div><div class="card"><h3>Touch & gamepad</h3><p>On-screen buttons support multi-touch. Drag the screen to look around. Tilt steering is available in Settings. Gamepad: stick steer, RT gas, LT brake, A handbrake, X horn, Y camera, B lights, LB/RB gears.</p></div><div class="card"><h3>How to play</h3><p>Stop on a bus stop (blue sign) to board passengers, drive smoothly, and drop them at their stop. Visit F (fuel), R (repair) and S (rest) stations. Obey traffic lights and speed limits. Earn money and XP to unlock bigger buses.</p></div><div class="card"><h3>World</h3><p>An endless procedural world: cities, villages, deserts, mountains with tunnels, lakes and rivers with bridges, airports, terminals, industrial zones and highways.</p></div></div>';
+ if(PANEL==='about')return '<p><b style="color:var(--y)">ULTIMATE BUS WORLD 3D</b> is a complete open-world voxel bus simulator. Rendering, sound, maps and save data run locally in your browser using WebGL, Canvas, Web Audio and local storage. No external files or internet required.</p><div class="grid"><div class="card"><h3>Keyboard</h3><p>W/\u2191 gas \u00B7 S/\u2193 brake / reverse<br>A,D / \u2190,\u2192 steer \u00B7 Space handbrake<br>H horn \u00B7 L lights \u00B7 Z/X indicators \u00B7 B hazards<br>C camera \u00B7 R reverse gear \u00B7 Q/E manual gears<br>T auto/manual \u00B7 G speed limiter \u00B7 M map \u00B7 P/Esc pause</p></div><div class="card"><h3>Touch & gamepad</h3><p>On-screen buttons support multi-touch. Drag the screen to look around. Tilt steering is available in Settings. Gamepad: stick steer, RT gas, LT brake, A handbrake, X horn, Y camera, B lights, LB/RB gears.</p></div><div class="card"><h3>How to play</h3><p>Stop on a bus stop (blue sign) to board passengers, drive smoothly, and drop them at their stop. Visit F (fuel), R (repair) and S (rest) stations. Obey traffic lights and speed limits. Earn money and XP to unlock bigger buses.</p></div><div class="card"><h3>Regions & routes</h3><p>Explore five seeded open worlds: Emerald Valley, Pinebound Highlands, Sunstone Desert, Frostline Alpine and Tidewater Coast. Terrain, settlement layouts, traction and engine temperature vary by region; every world includes an endless road grid, terminals, service stops, towns and generated missions.</p></div></div>';
  return '';
 }
 const SETDEF=[
@@ -1997,7 +2202,9 @@ function closePanel(){
 }
 function updateMenuInfo(){
  E('mMoney').textContent=money(SV.money);E('mLvl').textContent='LEVEL '+SV.level+'  \u00B7  XP '+SV.xp+'/'+xpNeed(SV.level);E('mRep').textContent='\u2605 REPUTATION '+Math.round(SV.rep);
- const d=BUSES.find(b=>b.id===SV.sel)||BUSES[0];E('menuBus').innerHTML='<b>'+d.name+'</b><br><span style="color:#cbd5e1">'+d.desc+'</span>';
+ const d=BUSES.find(b=>b.id===SV.sel)||BUSES[0],w=activeWorld(),km=(SV.worldKm[w.id]||0).toFixed(1);
+ E('mRegion').textContent='REGION  ·  '+w.name.toUpperCase();E('menuBus').style.setProperty('--world-accent',w.accent);
+ E('menuBus').innerHTML='<span class="spot-kicker">ACTIVE EXPEDITION · '+w.region+'</span><div class="spot-world">'+w.name+'</div><p class="spot-desc">'+w.description+'</p><div class="spot-stats"><span>LANDSCAPE <b>'+w.terrain+'</b></span><span>HANDLING <b>'+w.challenge+'</b></span><span>LOGGED <b>'+km+' km</b></span></div><div class="spot-bus"><div><small>ACTIVE FLEET BUS</small><b>'+d.name+'</b></div><button class="btn sec sm" data-act="map">EXPLORE WORLDS</button></div>';
 }
 function showResult(ok,m,lines){
  G.paused=true;G.result=true;E('hud').classList.remove('on');
@@ -2036,7 +2243,22 @@ document.addEventListener('input',e=>{
 function pauseGame(){if(G.mode!=='play'||G.paused||G.result)return;G.paused=true;E('pause').classList.add('on');E('touch').classList.remove('on');for(const k in TB)TB[k]=false;document.querySelectorAll('.tb').forEach(b=>b.classList.remove('act'));E('pause').querySelector('[data-act=abort]').style.display=G.mission?'':'none';}
 function resumeGame(){E('pause').classList.remove('on');G.paused=false;}
 function togglePause(){if(G.mode!=='play'||G.result)return;if(PANEL&&G.paused){closePanel();return;}if(G.paused)resumeGame();else pauseGame();}
+function selectWorld(id){
+ if(G.mode==='play'){toast('Return to the main menu to change regions','r');return;}
+ const w=WORLD_MAPS.find(x=>x.id===id);if(!w)return;
+ if(SV.world===w.id){toast('You are already exploring '+w.name,'g');return;}
+ clearWorld();NODES.clear();SEGS.clear();STOPS.clear();
+ SV.world=w.id;ACTIVE_WORLD=w;WORLD_SEED=w.seed|0;SV.pos=null;
+ TR.length=0;PD.length=0;PART.length=0;P.pax=[];P.atStop=null;P.dwell=0;P.boardT=0;G.svc=null;G.waypoint=null;G.route=null;G.routeT=0;G.mission=null;syncPax();
+ MAPV.sel=null;MAPV.bg=null;MAPV.cx=P.x;MAPV.cz=P.z;miBg=null;
+ genMissions();
+ const sp=defaultSpawn();placePlayer(sp.x,sp.z,sp.yaw);P.safe={x:P.x,z:P.z,yaw:P.yaw};
+ saveAll();updateMenuInfo();updateCamera(0.15);renderPanel();
+ toast('Region unlocked: '+w.name,'g');
+}
 const ACT={
+ selectWorld(t){selectWorld(t.dataset.id);},
+
  play(){startFree(true);},
  free(){startFree(false);},
  career(){showPanel('career');},missions(){showPanel('missions');},garage(){showPanel('garage');},map(){showPanel('map');},settings(){showPanel('settings');},about(){showPanel('about');},
@@ -2059,7 +2281,7 @@ const ACT={
  mzin(){MAPV.s=clamp(MAPV.s*1.3,0.1,1.2);mapRedraw();},mzout(){MAPV.s=clamp(MAPV.s/1.3,0.1,1.2);mapRedraw();},
  mcenter(){MAPV.cx=P.x;MAPV.cz=P.z;mapRedraw();},mclear(){G.waypoint=null;MAPV.sel=null;G.route=null;mapRedraw();toast('GPS cleared');},
  fs(){const d=document.documentElement;try{if(document.fullscreenElement)document.exitFullscreen();else (d.requestFullscreen||d.webkitRequestFullscreen).call(d);}catch(e){}},
- reset(){if(confirm('Reset ALL progress (money, buses, missions)?')){LS.del('ubw3d_save');const d=JSON.parse(JSON.stringify(DEFSAVE));for(const k in SV)delete SV[k];Object.assign(SV,d);P.dmg=0;P.pax=[];setBus('city');P.fuel=maxFuel();saveAll();updateMenuInfo();renderPanel();toast('Progress reset');}}
+ reset(){if(confirm('Reset ALL progress, buses, missions and exploration logs?')){LS.del('ubw3d_save');const d=JSON.parse(JSON.stringify(DEFSAVE));for(const k in SV)delete SV[k];Object.assign(SV,d);ACTIVE_WORLD=WORLD_MAPS[0];WORLD_SEED=ACTIVE_WORLD.seed|0;clearWorld();NODES.clear();SEGS.clear();STOPS.clear();G.waypoint=null;G.route=null;MAPV.bg=null;miBg=null;genMissions();const sp=defaultSpawn();placePlayer(sp.x,sp.z,sp.yaw);P.dmg=0;P.pax=[];P.atStop=null;setBus('city');P.fuel=maxFuel();MAPV.cx=P.x;MAPV.cz=P.z;saveAll();updateMenuInfo();renderPanel();toast('Progress reset');}}
 };
 document.addEventListener('click',e=>{
  const t=e.target.closest('[data-act]');if(!t||t.disabled)return;
